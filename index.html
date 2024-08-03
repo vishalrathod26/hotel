@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Menu</title>
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <script
+      src="https://unpkg.com/react@latest/umd/react.development.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/react-dom@latest/umd/react-dom.development.js"></script>
+    <script
+      src="https://unpkg.com/@mui/material@latest/umd/material-ui.development.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://unpkg.com/@babel/standalone@latest/babel.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Fonts to support Material Design -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+    />
+    <!-- Icons to support Material Design -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const {
+        useState,
+        setState
+      } = React;
+
+      const {
+        colors,
+        CssBaseline,
+        ThemeProvider,
+        Typography,
+        Container,
+        createTheme,
+        Box,
+        SvgIcon,
+        Link,
+        Accordion,
+        AccordionDetails,
+        AccordionSummary,
+        Card,
+        CardContent,
+        CardMedia,
+        Icon,
+        Grid,
+        Fab,
+        Modal,
+        Paper,
+        TableContainer,
+        Table,
+        TableHead,
+        TableBody,
+        TableRow,
+        TableCell,
+        Button
+      } = MaterialUI;
+
+      // Create a theme instance.
+      const theme = createTheme({
+        palette: {
+          primary: {
+            main: '#556cd6',
+          },
+          secondary: {
+            main: '#19857b',
+          },
+          error: {
+            main: colors.red.A400,
+          },
+        },
+      });
+
+      function LightBulbIcon(props) {
+        return (
+          <SvgIcon {...props}>
+            <path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z" />
+          </SvgIcon>
+        );
+      }
+
+      const data = [
+        {
+          "category": "Starters",
+          "items": [
+            {
+              "name": "Paneer Tikka",
+              "desc": "Grilled paneer cubes marinated with spices",
+              "veg": true,
+              "bestseller": true,
+              "img": "https://t4.ftcdn.net/jpg/04/75/65/21/240_F_475652107_Sx73qgHWljGylX5KRyDFeE46ftX0A4EE.jpg",
+              "price": 150
+            },
+            {
+              "name": "Chicken Tikka",
+              "desc": "Grilled chicken cubes marinated with spices",
+              "veg": false,
+              "bestseller": true,
+              "img": "https://t4.ftcdn.net/jpg/05/85/17/03/240_F_585170352_7D9PjNXOvU3PAB4ynMRWpEavhBNuLG3J.jpg",
+              "price": 200
+            },
+            {
+              "name": "Veg Spring Rolls",
+              "desc": "Crispy rolls stuffed with mixed vegetables",
+              "veg": true,
+              "bestseller": false,
+              "img": "https://t4.ftcdn.net/jpg/07/04/43/13/240_F_704431397_8RLS1GYyBd2NmiXHUcrJnVb5W2jRMR6f.jpg",
+              "price": 120
+            },
+            {
+              "name": "Fish Fingers",
+              "desc": "Crispy fish fingers served with tartar sauce",
+              "veg": false,
+              "bestseller": false,
+              "img": "https://t4.ftcdn.net/jpg/02/31/21/23/240_F_231212346_geW6Fshx98WWPTE42CSMjV5GWVVUP0Rw.jpg",
+              "price": 180
+            }
+          ]
+        },
+        {
+          "category": "North Indian",
+          "items": [
+            {
+              "name": "Butter Chicken",
+              "desc": "Chicken cooked in a creamy tomato gravy",
+              "veg": false,
+              "bestseller": true,
+              "img": "https://t4.ftcdn.net/jpg/08/32/95/07/240_F_832950746_IKYlGb4p4QGTU7BQpS2vYYASPlzluU3C.jpg",
+              "price": 250
+            },
+            {
+              "name": "Paneer Butter Masala",
+              "desc": "Paneer cooked in a creamy tomato gravy",
+              "veg": true,
+              "bestseller": true,
+              "img": "https://as1.ftcdn.net/v2/jpg/08/32/94/02/1000_F_832940233_Pjhjwkae9U005OzPn8iufNdk3Cn674tT.jpg",
+              "price": 220
+            },
+            {
+              "name": "Dal Makhani",
+              "desc": "Slow-cooked black lentils in a rich gravy",
+              "veg": true,
+              "bestseller": false,
+              "img": "https://as2.ftcdn.net/v2/jpg/08/20/89/57/1000_F_820895791_GYJEAuIS88wa6AsUnbwomwmG1cOcME8v.jpg",
+              "price": 180
+            },
+            {
+              "name": "Rogan Josh",
+              "desc": "Tender lamb curry with aromatic spices",
+              "veg": false,
+              "bestseller": false,
+              "img": "https://as2.ftcdn.net/v2/jpg/02/22/66/37/1000_F_222663765_oUyDeD8eXUnSU48zDsxsGxP4FpK62euh.jpg",
+              "price": 300
+            }
+          ]
+        },
+        {
+          "category": "Chinese",
+          "items": [
+            {
+              "name": "Veg Manchurian",
+              "desc": "Vegetable dumplings in a tangy sauce",
+              "veg": true,
+              "bestseller": true,
+              "img": "https://t3.ftcdn.net/jpg/04/47/95/48/240_F_447954890_nYoJ3Lm6OElMe0LogDry2KfHF4tXsfMw.jpg",
+              "price": 150
+            },
+            {
+              "name": "Chicken Hakka Noodles",
+              "desc": "Stir-fried noodles with chicken and vegetables",
+              "veg": false,
+              "bestseller": true,
+              "img": "https://t3.ftcdn.net/jpg/02/63/74/94/240_F_263749475_QrZEtQ8YB5L0V9lq6yP4i4XWb9RYZIYp.jpg",
+              "price": 180
+            },
+            {
+              "name": "Chilli Paneer",
+              "desc": "Paneer cubes in a spicy chilli sauce",
+              "veg": true,
+              "bestseller": false,
+              "img": "https://as1.ftcdn.net/v2/jpg/03/99/84/80/1000_F_399848042_D5ta4TvnPXTqNygWEX8yJy5LZKLX5ks8.jpg",
+              "price": 160
+            },
+            {
+              "name": "Prawn Fried Rice",
+              "desc": "Fried rice with prawns and vegetables",
+              "veg": false,
+              "bestseller": false,
+              "img": "https://t3.ftcdn.net/jpg/03/26/60/56/240_F_326605666_7cd5xdHVUFKYI3vcPdkynlm7he05FhND.jpg",
+              "price": 200
+            }
+          ]
+        },
+        {
+          "category": "South Indian",
+          "items": [
+            {
+              "name": "Masala Dosa",
+              "desc": "Crispy dosa filled with spicy potato masala",
+              "veg": true,
+              "bestseller": true,
+              "img": "https://as1.ftcdn.net/v2/jpg/08/65/22/92/1000_F_865229237_KJcY3PQWSdfFBKypN1FxlqOGyRzfmGBh.jpg",
+              "price": 120
+            },
+            {
+              "name": "Chicken Chettinad",
+              "desc": "Spicy chicken curry from Chettinad region",
+              "veg": false,
+              "bestseller": true,
+              "img": "https://as2.ftcdn.net/v2/jpg/08/34/72/29/1000_F_834722970_tGWCerYSxJP4MLzzOhoMpsrCy8qXvmlO.jpg",
+              "price": 220
+            },
+            {
+              "name": "Idli Sambar",
+              "desc": "Steamed rice cakes served with sambar",
+              "veg": true,
+              "bestseller": false,
+              "img": "https://as2.ftcdn.net/v2/jpg/04/95/58/09/1000_F_495580942_c2nOO7qVOOOaiOSo4toGwDSiYkQ7tgeb.jpg",
+              "price": 100
+            },
+            {
+              "name": "Fish Curry",
+              "desc": "Tangy and spicy fish curry",
+              "veg": false,
+              "bestseller": false,
+              "img": "https://as1.ftcdn.net/v2/jpg/07/39/21/70/1000_F_739217062_iJBZynkBH1JYtuzncYu2Qn6VRFQJf4AE.jpg",
+              "price": 250
+            }
+          ]
+        }
+      ]
+
+      function VegIcon() {
+        return (
+          <SvgIcon>
+            <path fillRule="evenodd" clipRule="evenodd" d="M10 18.25c-2.406 0-4.035-.004-5.253-.168-1.168-.156-1.692-.431-2.045-.784-.353-.353-.628-.877-.785-2.045-.163-1.218-.167-2.847-.167-5.253s.004-4.035.167-5.253c.157-1.168.432-1.692.785-2.045.353-.353.877-.628 2.045-.785C5.965 1.754 7.594 1.75 10 1.75s4.035.004 5.253.167c1.168.157 1.692.432 2.045.785.353.353.628.877.785 2.045.163 1.218.167 2.847.167 5.253s-.004 4.035-.168 5.253c-.156 1.168-.431 1.692-.784 2.045-.353.353-.877.628-2.045.785-1.218.163-2.847.167-5.253.167ZM0 10c0-4.714 0-7.071 1.464-8.536C2.93 0 5.286 0 10 0c4.714 0 7.071 0 8.535 1.464C20 2.93 20 5.286 20 10c0 4.714 0 7.071-1.465 8.535C17.072 20 14.714 20 10 20s-7.071 0-8.536-1.465C0 17.072 0 14.714 0 10Zm10 5a5 5 0 1 0 0-10 5 5 0 0 0 0 10Z" fill="#0F8A65" />
+          </SvgIcon>
+        );
+      }
+
+      function NonVegIcon() {
+        return (
+          <SvgIcon>
+            <path fillRule="evenodd" clipRule="evenodd" d="M4.747 18.082c1.218.164 2.847.168 5.253.168s4.035-.004 5.253-.168c1.168-.156 1.692-.431 2.045-.784.353-.353.628-.877.785-2.045.163-1.218.167-2.847.167-5.253 0-2.407-.004-4.035-.168-5.253-.156-1.168-.431-1.692-.784-2.045-.353-.353-.877-.628-2.045-.785-1.218-.163-2.847-.167-5.253-.167s-4.035.004-5.253.167c-1.168.157-1.692.432-2.045.785-.353.353-.628.877-.785 2.045C1.754 5.965 1.75 7.594 1.75 10s.004 4.035.167 5.253c.157 1.168.432 1.692.785 2.045.353.353.877.628 2.045.785ZM1.464 1.465C0 2.93 0 5.286 0 10c0 4.714 0 7.071 1.464 8.535C2.93 20 5.286 20 10 20c4.714 0 7.071 0 8.535-1.465C20 17.072 20 14.714 20 10s0-7.071-1.465-8.536C17.072 0 14.714 0 10 0S2.929 0 1.464 1.464ZM4.18 14.098c.238.428.9.428 2.224.428h7.192c1.324 0 1.986 0 2.224-.428.238-.428-.11-.99-.807-2.116l-3.596-5.808c-.635-1.026-.953-1.539-1.417-1.539-.464 0-.782.513-1.417 1.54l-3.596 5.807c-.697 1.126-1.045 1.688-.807 2.116Z" fill="#E43B4F" />
+          </SvgIcon>
+        );
+      }
+      
+      function Quantity({ name, price, setOrder }) {
+        const [count, setCount] = useState(0);
+        
+        function updateCount(count) {
+          let currentOrder = {};
+          currentOrder[name] = [count, price*count];
+          setOrder(previousOrder => {return { ...previousOrder, ...currentOrder}});
+          setCount(count);
+        }
+        
+        let button;
+        if (count != 0) {
+          button = <div>
+            <button onClick={() => updateCount(count > 0 ? count - 1 : 0)}>-</button>
+            {count}
+            <button onClick={() => updateCount(count < 10 ? count + 1 : 10)}>+</button>
+          </div>
+        } else {
+          button = <div>
+            <button onClick={() => updateCount(count < 10 ? count + 1 : 10)}>Add</button>
+          </div>
+        }
+
+        return (
+          <div>
+            {button}
+          </div>
+        )
+      }
+
+      function MenuItem({ item, setOrder }) {
+        return <Card sx={{ display: 'flex', padding:1, margin:1 }}>
+          <CardMedia
+            component="img"
+            sx={{ width: 151, height: 151 }}
+            src={item.img}
+            alt={item.name}
+          />
+          <CardContent>
+            <Grid container spacing={2} direction="row" sx={{ display: 'flex' }}>
+              <Grid item>
+                {item.veg ? <VegIcon /> : <NonVegIcon /> }
+              </Grid>
+              <Grid item>
+                <Typography variant="h6" color="text.primary" component="div">
+                  {item.name}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container spacing={2} direction="row" sx={{ display: 'flex'}}>
+              <Grid item>
+                <Typography variant="subtitle1" color="text.secondary" component="div">
+                  {item.desc}
+                </Typography>
+              </Grid>
+            </Grid>
+            <Grid container spacing={2} direction="row" sx={{ display: 'flex'}}>
+              <Grid item>
+                <Typography variant="subtitle1" color="text.secondary" component="div">
+                  {'₹'}{item.price}
+                </Typography>
+              </Grid>
+              <Grid item align="right">
+                <Quantity name={item.name} price={item.price} setOrder={setOrder} />
+              </Grid>
+            </Grid>
+          </CardContent>
+        </Card>
+      }
+
+      function SubMenu({ category, items, setOrder}) {
+        return <div>
+          <Accordion defaultExpanded>
+            <AccordionSummary expandIcon={<Icon>keyboard_arrow_down</Icon>} aria-controls="panel-content">
+              <Typography variant="h5" color="text.primary" component="div">
+                {category}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
+              {items.map(item =>
+                <MenuItem key={item.name} item={item} setOrder={setOrder} />
+              )}
+            </AccordionDetails>
+          </Accordion>
+        </div>
+      }
+
+      function Menu({ menu, setOrder }) {
+        return <div>
+          {menu.map(submenu =>
+            <SubMenu key={submenu.category} category= {submenu.category} items={submenu.items} setOrder={setOrder} />
+          )}
+        </div>;
+      }
+
+      function OrderTable({ order }) {
+        const boxStyle = {
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 300,
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          padding: 4,
+          // border: '1px solid #000',
+        };
+        
+        let rows = [];
+        let quantity = 0;
+        let price = 0;
+        for (let item in order) {
+          if (order[item][0] != 0) {
+            rows.push({
+              name: item,
+              quantity: order[item][0],
+              price: order[item][1]
+            });
+            quantity+=order[item][0];
+            price+=order[item][1];
+          }
+        }
+
+        return (
+          <Box sx={boxStyle}>
+            <Typography variant="h6" color="text.primary" component="div">
+              Order
+            </Typography>
+            <br />
+            <TableContainer component={Paper}>
+              <Table sx={{ minWidth: 300 }}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Item</TableCell>
+                    <TableCell align="right">Quantity</TableCell>
+                    <TableCell align="right">Price</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((item) => (
+                    <TableRow key={item.name} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                      <TableCell component="th" scope="row">{item.name}</TableCell>
+                      <TableCell align="right">{item.quantity}</TableCell>
+                      <TableCell align="right">{item.price}</TableCell>
+                    </TableRow>
+                  ))}
+                  <TableRow key='total' sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    <TableCell component="th" scope="row">Total</TableCell>
+                    <TableCell align="right">{quantity}</TableCell>
+                    <TableCell align="right">{price}</TableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <Button onClick={() => {
+              let orderText = "";
+              for (let item in order) {
+                orderText+=`${order[item][0]}%20${item}%0A`
+              }
+              orderText+=`Total:%20${price}%0A`
+              window.location.href=`https://api.whatsapp.com/send?phone=+919907250417&text=${orderText}`;
+            }}>Place Order</Button>
+          </Box>
+        );
+      }
+
+      function Order({ order }) {
+        const [open, setOpen] = React.useState(false);
+        const handleOpen = () => setOpen(true);
+        const handleClose = () => setOpen(false);
+
+        return (
+          <div>
+            <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 30, right: 30 }} onClick={() => {
+              let count = 0;
+              for (let item in order)
+                count+=order[item][0];
+              if(count)
+                handleOpen();
+              else
+                alert("Nothing in cart!");
+            }}>
+              <Icon>shopping_cart</Icon>
+            </Fab>
+            <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+              <div>
+                <OrderTable order={order} />
+              </div>
+            </Modal>
+          </div>
+        );
+      }
+
+      function Banner() {
+        return <Typography variant="h2" color="text.primary" component="div">
+          HOTEL YASHIKA PALACE
+        </Typography>
+      }
+
+      function Copyright() {
+        return (
+          <Typography variant="body2" color="text.secondary" align="center">
+            {'Copyright © '}
+            <Link color="inherit" href="https://mui.com/">
+              Made with MUI
+            </Link>{' '}
+            {new Date().getFullYear()}
+            {'.'}
+          </Typography>
+        );
+      }
+
+      function App() {
+        const [order, setOrder] = useState({});
+        return (
+          <Container maxWidth="sm">
+            <Banner />
+            <Menu menu={data} setOrder={setOrder} />
+            <Order order={order} />
+            <br /><Copyright /><br />
+          </Container>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById('root'));
+      root.render(
+        <ThemeProvider theme={theme}>
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
+          <App />
+        </ThemeProvider>,
+      );
+    </script>
+  </body>
+</html>
